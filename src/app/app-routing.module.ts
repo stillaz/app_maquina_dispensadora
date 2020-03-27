@@ -8,6 +8,7 @@ const routes: Routes = [
     path: 'maquinas',
     loadChildren: () => import('./pages/maquina/maquina.module').then( m => m.MaquinaPageModule)
   },
+  {path: 'productos', loadChildren:'./pages/productos/productos.module#ProductosPageModule'}
 
 ];
 
