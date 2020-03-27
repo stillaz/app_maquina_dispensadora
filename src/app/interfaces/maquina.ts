@@ -1,7 +1,7 @@
 export interface Maquina {
     id: string,
     activo?: boolean,
-    actualizacion?: Date,
+    actualizacion?: string,
     alerta?: boolean,
     estado?: string,
     tipo?: string,

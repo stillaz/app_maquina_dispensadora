@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
-import { DetalleMaquinaComponent } from './detalle-maquina/detalle-maquina.component';
 import { HomePage } from './home.page';
 
 const routes: Routes = [
@@ -22,10 +21,8 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     ReactiveFormsModule
   ],
-  declarations: [HomePage, DetalleMaquinaComponent],
-  entryComponents: [DetalleMaquinaComponent],
-  exports: [
-    ReactiveFormsModule
-  ]
+  declarations: [HomePage],
+
+
 })
 export class HomePageModule {}

@@ -14,7 +14,7 @@
     <form [formGroup]="formulario">
         <ion-list>
           <ion-item>
-            <ion-label color="primary" position="floating">Id</ion-label>
+            <ion-label  position="floating">Id</ion-label>
             <ion-input type="text" formControlName="id"></ion-input>
           </ion-item>  
           <ion-item>
@@ -30,20 +30,24 @@
             <ion-checkbox  formControlName="alerta"></ion-checkbox>
           </ion-item>
           <ion-item>
-            <ion-label color="primary" position="floating">Estado</ion-label>
+            <ion-label  position="floating">Estado</ion-label>
             <ion-input formControlName="estado" type="text"></ion-input>
           </ion-item>
+
           <ion-item>
-            <ion-label color="primary" position="floating">tipo</ion-label>
-            <ion-input type="text" formControlName="tipo"></ion-input>
-          </ion-item>   
+            <ion-label  position="floating">tipo</ion-label>
+            <ion-select multiple="true" cancelText="cancelar" okText="aceptar" formControlName="tipo">
+              <ion-select-option value="Gaseosa">Gaseosa</ion-select-option>
+              <ion-select-option value="Mecato">Mecato</ion-select-option>
+            </ion-select>
+          </ion-item>  
           <ion-item>
-            <ion-label color="primary" position="floating">Ubicación</ion-label>
+            <ion-label  position="floating">Ubicación</ion-label>
             <ion-input type="text" formControlName="ubicacion"></ion-input>
           </ion-item>  
           <ion-item>
-            <ion-label color="primary" position="floating">Lugar</ion-label>
-            <ion-input type="text" formControlName="estado"></ion-input>
+            <ion-label  position="floating">Lugar</ion-label>
+            <ion-input type="text" formControlName="lugar"></ion-input>
           </ion-item>              
         </ion-list>
     </form>

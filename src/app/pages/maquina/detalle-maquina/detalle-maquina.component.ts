@@ -26,7 +26,7 @@ export class DetalleMaquinaComponent implements OnInit {
     console.log(this.id);
     const maquina = this.id ? this.maquinaService.encontrar(this.id) || {}  as Maquina : {} as Maquina;
     this.formulario = this.formBuilder.group({
-      id: [ maquina.id , Validators.required],
+      id: [{value: maquina.id, disabled: this.id} , Validators.required],
       activo: [maquina.activo, Validators.required],
       actualizacion: [maquina.actualizacion, Validators.required],
       alerta: [maquina.alerta, Validators.required],
@@ -43,7 +43,7 @@ export class DetalleMaquinaComponent implements OnInit {
 
   guardar() {
     const maquina: Maquina = this.formulario.value;
-    maquina.id = this.id;
+    maquina.id = maquina.id || this.id;
 
     if(this.id){
       this.maquinaService.modificar(this.id, maquina);
