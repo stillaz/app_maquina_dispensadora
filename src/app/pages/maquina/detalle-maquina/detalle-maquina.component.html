@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="fondo">Crear Maquina</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrar()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngIf="formulario">
+    <form [formGroup]="formulario">
+        <ion-list>
+          <ion-item>
+            <ion-label  position="floating">Id</ion-label>
+            <ion-input type="text" formControlName="id"></ion-input>
+          </ion-item>  
+          <ion-item>
+            <ion-label  position="floating">Activo</ion-label>
+            <ion-checkbox  formControlName="activo"></ion-checkbox>
+          </ion-item>
+          <ion-item>
+            <ion-label  position="floating">actualización</ion-label>
+            <ion-datetime  formControlName="actualizacion" displayFormat="MM/DD/YYYY" min="1994-03-14" max="2030-12-09" value="2002-09-23T15:03:46.789"></ion-datetime>
+          </ion-item>
+          <ion-item>
+            <ion-label  position="floating">Alerta</ion-label>
+            <ion-checkbox  formControlName="alerta"></ion-checkbox>
+          </ion-item>
+          <ion-item>
+            <ion-label  position="floating">Estado</ion-label>
+            <ion-input formControlName="estado" type="text"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label  position="floating">tipo</ion-label>
+            <ion-select multiple="true" cancelText="cancelar" okText="aceptar" formControlName="tipo">
+              <ion-select-option value="Gaseosa">Gaseosa</ion-select-option>
+              <ion-select-option value="Mecato">Mecato</ion-select-option>
+            </ion-select>
+          </ion-item>  
+          <ion-item>
+            <ion-label  position="floating">Ubicación</ion-label>
+            <ion-input type="text" formControlName="ubicacion"></ion-input>
+          </ion-item>  
+          <ion-item>
+            <ion-label  position="floating">Lugar</ion-label>
+            <ion-input type="text" formControlName="lugar"></ion-input>
+          </ion-item>              
+        </ion-list>
+    </form>
+  </ion-card>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+
+      <ion-button color="success"  (click)="guardar()">
+        Guardar
+        <ion-icon name="save" slot="start"></ion-icon>
+      </ion-button>
+
+      <ion-button color="danger" (click)="cerrar()">
+        Cancelar
+        <ion-icon name="close" slot="start"></ion-icon>
+      </ion-button>
+
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
