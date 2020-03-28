@@ -31,7 +31,7 @@ export class DetalleProductoComponent implements OnInit {
     }
 
     this.formulario = this.formBuilder.group({
-      id: [producto.id, [Validators.required], this.valorUnico()],
+      id: [producto.id, Validators.required, this.valorUnico()],
       nombre: [producto.nombre, Validators.required],
       precio: [producto.precio, Validators.required],
       cantidad: [producto.cantidad, Validators.required],
