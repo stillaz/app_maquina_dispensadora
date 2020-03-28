@@ -8,15 +8,26 @@ import { Producto } from '../interfaces/producto';
   providedIn: 'root'
 })
 export class ProductoService {
-  actualizaciondate:Date =  new Date("2020-03-27");
-  fechainventariodate:Date =  new Date("2020-03-27");
+
+public desktop:Date = new Date("2020-02-11");
+
 
   productos: Producto[] = [
-    {id:'123', activo:true, alerta:1, actualizacion:this.actualizaciondate, cantidad:5, estadoinventario:'En Stock',fechainventario:this.fechainventariodate, imagen:'', nombre:'Papitas',precio:2500},
-    {id:'234', activo:true, alerta:1, actualizacion:this.actualizaciondate, cantidad:6, estadoinventario:'En Stock',fechainventario:this.fechainventariodate, imagen:'', nombre:'Platanitos',precio:2500}
+    {
+      id:'123', nombre:'Papitas', precio:2500, cantidad:5, activo:true, alerta:1, 
+      actualizacion:this.desktop, estadoinventario:'En Stock',
+      fechainventario:this.desktop, imagen:'../imagen/miImagen.png'
+    },
+    {
+      id:'234', nombre:'Platanitos', precio:2500, cantidad:6, activo:false, alerta:1, 
+      actualizacion:this.desktop, estadoinventario:'En Stock',
+      fechainventario:this.desktop, imagen:''
+    }
   ];
 
-  constructor() { }
+  constructor() {
+    console.log(this.desktop);
+   }
 
   encontrar(id:string){
     return this.productos.find(producto => producto.id === id);
@@ -27,5 +38,16 @@ export class ProductoService {
     console.log(this.productos);
   }
 
+  modificar(id:string, producto:Producto){
+    const index = this.productos.findIndex(producto => producto.id === id);
+    this.productos.splice(index, 1, producto);
+    console.log(this.productos);
+    alert(this.desktop);
+  }
+
+  eliminar(id:string){
+    const index = this.productos.findIndex(producto => producto.id === id);
+    this.productos.splice(index, 1);
+  }
 
 }
