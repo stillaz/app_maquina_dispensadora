@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ModalController, ToastController } from '@ionic/angular';
+import { ModalController, ToastController, AlertController, NavController } from '@ionic/angular';
 import { MaquinaService } from 'src/app/services/maquina.service';
 import { Maquina } from 'src/app/interfaces/maquina';
+import { TipoMaquina } from '../../../enums/tipo-maquina.enum';
 
 @Component({
   selector: 'app-detalle-maquina',
@@ -11,29 +12,33 @@ import { Maquina } from 'src/app/interfaces/maquina';
 })
 export class DetalleMaquinaComponent implements OnInit {
 
-
   formulario: FormGroup;
   id: string;
+  tipoMaquina = [TipoMaquina.BEBIDAS, TipoMaquina.MECATOS];
+  existe = false;
 
   constructor(
     private modalController: ModalController,
     private formBuilder: FormBuilder,
     private maquinaService: MaquinaService,
     private toastController: ToastController,
+    private alertController: AlertController,
+    private navController: NavController
   ) { }
 
-  ngOnInit() {
-    console.log(this.id);
-    const maquina = this.id ? this.maquinaService.encontrar(this.id) || {}  as Maquina : {} as Maquina;
+  async ngOnInit() {
+    let maquina = {} as Maquina;
+    if (this.id) {
+      maquina = await this.obtener();
+      this.existe = Boolean(maquina.id);
+    }
+
     this.formulario = this.formBuilder.group({
-      id: [{value: maquina.id, disabled: this.id} , Validators.required],
+      id: [{ value: maquina.id, disabled: this.id }, Validators.required],
       activo: [maquina.activo, Validators.required],
-      actualizacion: [maquina.actualizacion, Validators.required],
-      alerta: [maquina.alerta, Validators.required],
-      estado: [maquina.estado,  Validators.required],
-      tipo: [maquina.tipo,  Validators.required],
-      lugar: [maquina.lugar,  Validators.required],
-      ubicacion: [maquina.ubicacion,  Validators.required],
+      tipo: [maquina.tipo, Validators.required],
+      lugar: [maquina.lugar],
+      ubicacion: [maquina.ubicacion],
     });
   }
 
@@ -43,25 +48,64 @@ export class DetalleMaquinaComponent implements OnInit {
 
   guardar() {
     const maquina: Maquina = this.formulario.value;
-    maquina.id = maquina.id || this.id;
 
-    if(this.id){
-      this.maquinaService.modificar(this.id, maquina);
-      this.presentToast('se ha actualizado correctamente');
-    }else{
-      this.maquinaService.registrar(maquina);
-      this.presentToast('se ha guardado correctamente');
+    if (this.id) {
+      this.maquinaService.modificar(this.id, maquina).then(() => {
+        this.presentToast('se ha actualizado correctamente');
+        this.cerrar();
+      }).catch(err => this.presentAlert('Actualizar máquina', err, 'No se pudo actualizar la máquina'));
+    } else {
+      this.maquinaService.registrar(maquina).then(() => {
+        this.presentToast('se ha guardado correctamente');
+        this.cerrar();
+      }).catch(err => this.presentAlert('Registrar máquina', err, 'No se pudo registrar la máquina'));
     }
-    this.cerrar(); 
   }
 
-  private async presentToast(mensaje: string){
+  private async presentAlert(titulo: string, mensaje: string, subtitulo?: string) {
+    const alert = await this.alertController.create({
+      header: titulo,
+      message: mensaje,
+      subHeader: subtitulo,
+      buttons: ['Aceptar']
+    });
+
+    alert.present();
+  }
+
+  private async presentToast(mensaje: string) {
     const toast = await this.toastController.create({
       message: mensaje,
       duration: 3000
     });
 
     toast.present();
+  }
+
+  generarId() {
+    const id = this.maquinaService.id();
+    console.log(id)
+    this.formulario.patchValue({ id: id });
+  }
+
+  private obtener() {
+    return new Promise<Maquina>(resolve => {
+      this.maquinaService.encontrar(this.id).subscribe(maquina => {
+        resolve(maquina);
+      });
+    });
+  }
+
+  eliminar() {
+    this.maquinaService.eliminar(this.id).then(() => {
+      this.presentToast('se ha eliminado correctamente');
+      this.cerrar();
+    }).catch(err => this.presentAlert('Eliminar máquina', err, 'No se pudo eliminar la máquina'));
+  }
+
+  productos() {
+    this.cerrar();
+    this.navController.navigateForward(`productos/${this.id}`);
   }
 
 }

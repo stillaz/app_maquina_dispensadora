@@ -18,6 +18,14 @@
           <ion-input type="text" formControlName="id" [disabled]="id"></ion-input>
         </ion-item>
 
+        <ion-item color="danger" *ngIf="formulario.controls.id.errors.required && formulario.controls.id.touched">
+          <p>El código del producto no es válido</p>
+        </ion-item>
+
+        <ion-item color="danger" *ngIf="formulario.controls.id.errors.valorUnico">
+          <p>El código ingresado ya existe</p>
+        </ion-item>
+
         <ion-item>
           <ion-label color="primary" position="floating">Nombre</ion-label>
           <ion-input type="text" formControlName="nombre"></ion-input>
@@ -35,7 +43,8 @@
 
         <ion-item>
           <ion-label color="primary" position="floating">Activo</ion-label>
-          <ion-checkbox color="medium" formControlName="activo" [checked]="formulario.controls.activo.value" mode="md" position="floating"></ion-checkbox>          
+          <ion-checkbox color="medium" formControlName="activo" [checked]="formulario.controls.activo.value" mode="md"
+            position="floating"></ion-checkbox>
         </ion-item>
 
         <ion-item>
@@ -43,26 +52,17 @@
           <ion-input type="number" formControlName="alerta"></ion-input>
         </ion-item>
 
-        <ion-item>
-          <ion-label color="primary" position="floating">Actualización</ion-label>
-          <ion-datetime formControlName="actualizacion" displayFormat="YYYY-MM-DD"></ion-datetime>
-        </ion-item>
+        <ion-card style="height: 300px;">
+          <img *ngIf="formulario.controls.imagen.value" [src]="formulario.controls.imagen.value"
+            style="max-width:300px;" />
+          <ion-note color="medium" *ngIf="!formulario.controls.imagen.value">Sin imagen</ion-note>
 
-        <ion-item>
-          <ion-label color="primary" position="floating">Estado Inventario</ion-label>
-          <ion-input type="text" formControlName="estadoInventario"></ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-label color="primary" position="floating">Fecha Inventario</ion-label>
-          <ion-datetime formControlName="fechaInventario" displayFormat="YYYY-MM-DD" [value]="formulario.controls.fechaInventario.value"></ion-datetime>
-        </ion-item>
-
-        <ion-item>
-          <ion-label color="primary" position="floating">Imagen</ion-label>
-          <ion-input type="text" formControlName="imagen"></ion-input>
-        </ion-item>
-
+          <ion-fab horizontal="center" vertical="bottom">
+            <ion-fab-button [color]="" size="small" (click)="imagen()">
+              <ion-icon name="image"></ion-icon>
+            </ion-fab-button>
+          </ion-fab>
+        </ion-card>
       </ion-list>
     </form>
   </ion-card>

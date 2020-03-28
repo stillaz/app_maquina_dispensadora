@@ -1,41 +1,41 @@
 import { Injectable } from '@angular/core';
 import { Maquina } from '../interfaces/maquina';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MaquinaService {
 
-  maquinas: Maquina[] = [
-    {id: '1',
-    activo: true,
-    actualizacion: null ,
-    alerta: true,
-    estado: 'buena',
-    tipo: 'gaseosas',
-    lugar: '3 piso',
-    ubicacion: 'Mayorca'},
-  ];
+  constructor(private angularFirestore: AngularFirestore) { }
 
-  constructor() { }
-
-  encontrar(id: string){
-    return this.maquinas.find(maquinas => maquinas.id === id);
+  encontrar(id: string) {
+    const maquinaDocument = this.angularFirestore.doc<Maquina>(`maquinas/${id}`);
+    return maquinaDocument.valueChanges();
   }
 
-  registrar(maquina: Maquina){
-    this.maquinas.push(maquina);
-    console.log(this.maquinas);
+  registrar(maquina: Maquina) {
+    const maquinaDocument = this.angularFirestore.doc<Maquina>(`maquinas/${maquina.id}`);
+    return maquinaDocument.set(maquina);
   }
 
-  modificar(id: string, maquina: Maquina){
-    const index = this.maquinas.findIndex(maquina => maquina.id === id);
-    this.maquinas.splice(index, 1, maquina);
+  modificar(id: string, maquina: Maquina) {
+    const maquinaDocument = this.angularFirestore.doc<Maquina>(`maquinas/${id}`);
+    return maquinaDocument.update(maquina);
   }
 
-  eliminar(id: string){
-    const index = this.maquinas.findIndex(maquina => maquina.id === id);
-    this.maquinas.splice(index, 1);
+  eliminar(id: string) {
+    const maquinaDocument = this.angularFirestore.doc<Maquina>(`maquinas/${id}`);
+    return maquinaDocument.delete();
+  }
+
+  id() {
+    return this.angularFirestore.createId();
+  }
+
+  maquinas() {
+    const maquinaCollection = this.angularFirestore.collection<Maquina>('maquinas');
+    return maquinaCollection.valueChanges();
   }
 
 }

@@ -12,34 +12,33 @@ import { Maquina } from 'src/app/interfaces/maquina';
 export class MaquinaPage implements OnInit {
   maquinas: Maquina[];
 
-  constructor(private modalController: ModalController, private maquinaService: MaquinaService ) {}
-    ngOnInit() {
-      this.cargar();
-    }
+  constructor(private modalController: ModalController, private maquinaService: MaquinaService) { }
 
-    async registrar(){
-      const modal = await this.modalController.create({
-        component: DetalleMaquinaComponent
-      });
-
-      modal.onDidDismiss().then(() =>{
-        this.cargar();
-      });
-
-      modal.present();
-    }
-
-    private cargar(){
-      this.maquinas = this.maquinaService.maquinas;
-    }
-
-    async ver(id: string){
-      const modal = await this.modalController.create({
-        component: DetalleMaquinaComponent,
-        componentProps: {
-          id
-        }
-      });
-      modal.present();
-    }
+  ngOnInit() {
+    this.cargar();
   }
+
+  async registrar() {
+    const modal = await this.modalController.create({
+      component: DetalleMaquinaComponent
+    });
+
+    modal.present();
+  }
+
+  private cargar() {
+    this.maquinaService.maquinas().subscribe(maquinas => {
+      this.maquinas = maquinas;
+    });
+  }
+
+  async ver(id: string) {
+    const modal = await this.modalController.create({
+      component: DetalleMaquinaComponent,
+      componentProps: {
+        id
+      }
+    });
+    modal.present();
+  }
+}
