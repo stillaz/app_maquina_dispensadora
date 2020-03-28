@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
-<<<<<<< HEAD
-=======
 import { Producto } from '../interfaces/producto';
->>>>>>> crear_producto
 
 @Injectable({
   providedIn: 'root'
