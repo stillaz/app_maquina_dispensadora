@@ -18,13 +18,15 @@
           <ion-input type="text" formControlName="id" [disabled]="id"></ion-input>
         </ion-item>
 
-        <ion-item color="danger" *ngIf="formulario.controls.id.errors.required && formulario.controls.id.touched">
-          <p>El código del producto no es válido</p>
-        </ion-item>
+        <div *ngIf="formulario.controls.id.errors && formulario.controls.id.touched">
+          <ion-item color="danger" *ngIf="formulario.controls.id.errors.required">
+            <p>El código del producto no es válido</p>
+          </ion-item>
 
-        <ion-item color="danger" *ngIf="formulario.controls.id.errors.valorUnico">
-          <p>El código ingresado ya existe</p>
-        </ion-item>
+          <ion-item color="danger" *ngIf="formulario.controls.id.errors.valorUnico">
+            <p>El código ingresado ya existe</p>
+          </ion-item>
+        </div>
 
         <ion-item>
           <ion-label color="primary" position="floating">Nombre</ion-label>
@@ -43,8 +45,7 @@
 
         <ion-item>
           <ion-label color="primary" position="floating">Activo</ion-label>
-          <ion-checkbox color="medium" formControlName="activo" [checked]="formulario.controls.activo.value" mode="md"
-            position="floating"></ion-checkbox>
+          <ion-checkbox color="medium" formControlName="activo"></ion-checkbox>
         </ion-item>
 
         <ion-item>

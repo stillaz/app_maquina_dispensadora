@@ -28,11 +28,10 @@ export class DetalleProductoComponent implements OnInit {
     let producto = {} as Producto;
     if (this.id) {
       producto = await this.obtener(this.id);
-      console.log(producto);
     }
 
     this.formulario = this.formBuilder.group({
-      id: [producto.id, Validators.required],
+      id: [producto.id, [Validators.required], this.valorUnico()],
       nombre: [producto.nombre, Validators.required],
       precio: [producto.precio, Validators.required],
       cantidad: [producto.cantidad, Validators.required],
@@ -118,18 +117,10 @@ export class DetalleProductoComponent implements OnInit {
   private valorUnico(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } => {
       return new Promise(async resolve => {
-        if (Validators.required(control)) resolve({required: false});
-        else if (!this.id) {
-          const id: string = control.value;
-          const producto = await this.obtener(id);
-          if (producto) {
-            resolve({ valorUnico: true });
-          } else {
-            resolve({valorUnico: false});
-          }
-        } else {
-          resolve({valorUnico: false});
-        }
+        if (Validators.required(control) || this.id) return null;
+        const id = control.value;
+        const producto = await this.obtener(id);
+        resolve({ valorUnico: producto });
       });
     }
   }
