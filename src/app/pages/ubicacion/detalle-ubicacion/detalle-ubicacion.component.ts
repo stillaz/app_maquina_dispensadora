@@ -3,6 +3,7 @@ import { NavController, AlertController, ToastController, ModalController } from
 import { UbicacionService } from 'src/app/services/ubicacion.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Ubicacion } from 'src/app/interfaces/ubicacion';
+import { FotoPage } from '../../foto/foto.page';
 
 @Component({
   selector: 'app-detalle-ubicacion',
@@ -26,6 +27,7 @@ export class DetalleUbicacionComponent implements OnInit {
 
   async ngOnInit() {
     let ubicacion = {} as Ubicacion;
+    ubicacion.coordenadas = {} as any;
     if (this.id) {
       ubicacion = await this.obtener();
       this.existe = Boolean(ubicacion.id);
@@ -36,9 +38,9 @@ export class DetalleUbicacionComponent implements OnInit {
       direccion: [ubicacion.direccion],
       nombre: [ubicacion.nombre ],
       telefono: [ubicacion.telefono],
-      lat: [ubicacion.coordenadas[0].lat],
-      long: [[ubicacion.coordenadas]],
-      imagen: [ubicacion.imagen]
+      imagen: [ubicacion.imagen],
+      latitud: [ubicacion.coordenadas.latitud],
+      longitud: [ubicacion.coordenadas.longitud]
     });
   }
 
@@ -48,6 +50,7 @@ export class DetalleUbicacionComponent implements OnInit {
 
   guardar() {
     const ubicacion: Ubicacion = this.formulario.value;
+    ubicacion.coordenadas = {latitud: this.formulario.value.latitud, longitud: this.formulario.value.longitud}
 
     if (this.id) {
       this.ubicacionService.modificar(this.id, ubicacion).then(() => {

@@ -3,6 +3,6 @@ export interface Ubicacion {
     direccion: string,
     nombre: string,
     telefono: string,
-    coordenadas: [{lat: string, long: string}],
+    coordenadas: {latitud: string, longitud: string},
     imagen: string,
 }
