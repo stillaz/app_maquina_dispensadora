@@ -1,0 +1,86 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="fondo">Guardar Ubicación</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrar()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngIf="formulario">
+    <form [formGroup]="formulario">
+      <ion-list>
+        <ion-item>
+          <ion-label position="floating">Id</ion-label>
+          <ion-input type="text" formControlName="id"></ion-input>
+          <ion-button fill="outline" slot="end" (click)="generarId()">
+            <ion-icon name="reload-circle-outline" slot="start"></ion-icon>
+            Generar
+          </ion-button>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Dirección</ion-label>
+          <ion-input type="text"  formControlName="direccion"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Nombre</ion-label>
+          <ion-input type="text" formControlName="nombre"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">teléfono</ion-label>
+          <ion-input type="string" formControlName="telefono"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Latítud</ion-label>
+          <ion-input type="string" formControlName="lat"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Longítud</ion-label>
+          <ion-input type="string" formControlName="long"></ion-input>
+        </ion-item>
+
+
+        <ion-card style="height: 300px;">
+          <img *ngIf="formulario.controls.imagen.value" [src]="formulario.controls.imagen.value"
+            style="max-width:300px;" />
+          <ion-note color="medium" *ngIf="!formulario.controls.imagen.value">Sin imagen</ion-note>
+
+          <ion-fab horizontal="center" vertical="bottom">
+            <ion-fab-button [color]="" size="small" (click)="imagen()">
+              <ion-icon name="image"></ion-icon>
+            </ion-fab-button>
+          </ion-fab>
+        </ion-card>
+
+      </ion-list>
+    </form>
+  </ion-card>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button color="success" (click)="guardar()">
+        Guardar
+        <ion-icon name="save" slot="start"></ion-icon>
+      </ion-button>
+
+      <ion-button color="danger" (click)="eliminar()">
+        Eliminar
+        <ion-icon name="trash" slot="start"></ion-icon>
+      </ion-button>
+
+      <ion-button color="medium" (click)="cerrar()">
+        Cancelar
+        <ion-icon name="close" slot="start"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
