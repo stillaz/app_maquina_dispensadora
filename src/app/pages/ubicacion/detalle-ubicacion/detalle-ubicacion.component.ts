@@ -3,7 +3,6 @@ import { NavController, AlertController, ToastController, ModalController } from
 import { UbicacionService } from 'src/app/services/ubicacion.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Ubicacion } from 'src/app/interfaces/ubicacion';
-import { FotoPage } from '../../foto/foto.page';
 
 @Component({
   selector: 'app-detalle-ubicacion',

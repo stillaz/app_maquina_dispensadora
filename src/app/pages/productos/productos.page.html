@@ -1,14 +1,21 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Productos</ion-title>
+    <ion-back-button slot="start"></ion-back-button>
+    <ion-title>Productos {{id_maquina && 'de máquina ' + id_maquina}}</ion-title>
   </ion-toolbar>
 </ion-header>
+
 <ion-content>
   <ion-list>
     <ion-item *ngFor="let producto of productos" (click)="ver(producto.id)">
+      <ion-thumbnail slot="start" *ngIf="producto.imagen">
+        <img [src]="producto.imagen">
+      </ion-thumbnail>
+
       {{producto.nombre}}
     </ion-item>
   </ion-list>
+
   <ion-fab vertical="bottom" horizontal="center" slot="fixed">
     <ion-fab-button (click)="registrar()">
       <ion-icon name="add"></ion-icon>

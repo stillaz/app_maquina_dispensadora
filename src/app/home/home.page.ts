@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +10,12 @@ import { Component, OnInit } from '@angular/core';
 
 export class HomePage implements OnInit {
 
-  constructor( ) {}
-    ngOnInit() {
-    }
+  constructor(private navController: NavController) { }
+
+  ngOnInit() {
+  }
+
+  ir(page: string) {
+    this.navController.navigateForward(page);
+  }
 }
