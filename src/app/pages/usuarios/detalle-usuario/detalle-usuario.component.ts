@@ -3,8 +3,6 @@ import { FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl } from
 import { ModalController, ToastController, AlertController } from '@ionic/angular';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Usuario } from 'src/app/interfaces/usuario';
-import { FotoPage } from '../../foto/foto.page';
-import { validateEventsArray } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-detalle-usuario',
@@ -32,9 +30,8 @@ export class DetalleUsuarioComponent implements OnInit {
     }
 
     this.formulario = this.formBuilder.group({
-      id: [usuario.id, Validators.required, this.valorUnico()],
       nombre: [usuario.nombre, Validators.required],
-      correo_electronico: [usuario.correo_electronico, [Validators.required, Validators.email]],
+      correo_electronico: [usuario.correo_electronico, [Validators.required, Validators.email], this.valorUnico()],
       clave: [usuario.clave, Validators.required],
       perfil: [usuario.perfil, Validators.required]
     });
@@ -46,7 +43,7 @@ export class DetalleUsuarioComponent implements OnInit {
 
   guardar() {
     const usuario: Usuario = this.formulario.value;
-    this.formulario.controls.id.enable;
+    usuario.id = usuario.correo_electronico;
     if (this.id) {
       this.usuarioService.modificar(this.id, usuario).then(() => {
         this.presentToast('Se ha actualizado el usuario correctamente.');
@@ -81,7 +78,7 @@ export class DetalleUsuarioComponent implements OnInit {
         resolve(usuario);
       });
     });
-  }  
+  }
 
   private valorUnico(): ValidatorFn {
 
@@ -90,11 +87,11 @@ export class DetalleUsuarioComponent implements OnInit {
         if (Validators.required(control) || this.id) return null;
         const id = control.value;
         const usuario = await this.obtener(id);
-        if(usuario){
+        if (usuario) {
           resolve({ valorUnico: true });
         }
         return null;
-        
+
       });
     }
   }

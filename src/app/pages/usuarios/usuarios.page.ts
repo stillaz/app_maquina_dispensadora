@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from 'src/app/interfaces/usuario';
 import { ModalController } from '@ionic/angular';
-import { ActivatedRoute } from '@angular/router';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { DetalleUsuarioComponent } from './detalle-usuario/detalle-usuario.component';
 
@@ -18,7 +17,6 @@ export class UsuariosPage implements OnInit {
   constructor(
     private modalController: ModalController,
     private usuarioService: UsuarioService,
-    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit() {

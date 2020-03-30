@@ -13,21 +13,6 @@
     <form [formGroup]="formulario">
       <ion-list>
         <ion-item>
-          <ion-label color="primary" position="floating">Id</ion-label>
-          <ion-input type="text" formControlName="id" [disabled]="id"></ion-input>
-        </ion-item>
-
-        <div *ngIf="formulario.controls.id.errors && formulario.controls.id.touched">
-          {{formulario.controls.id.errors | json}}
-          <ion-item color="danger" *ngIf="formulario.controls.id.errors.required">
-            <p>El código del usuario no es válido</p>
-          </ion-item>
-          <ion-item color="danger" *ngIf="formulario.controls.id.errors.valorUnico">
-            <p>El código ingresado ya existe</p>
-          </ion-item>
-        </div>
-
-        <ion-item>
           <ion-label color="primary" position="floating">Nombre</ion-label>
           <ion-input type="text" formControlName="nombre"></ion-input>
         </ion-item>
@@ -40,6 +25,15 @@
           <ion-label color="primary" position="floating">Correo electrónico</ion-label>
           <ion-input type="email" formControlName="correo_electronico"></ion-input>
         </ion-item>
+
+        <div *ngIf="formulario.controls.correo_electronico.errors && formulario.controls.correo_electronico.touched">
+          <ion-item color="danger" *ngIf="!formulario.controls.correo_electronico.errors.valorUnico">
+            <p>El código del usuario no es válido</p>
+          </ion-item>
+          <ion-item color="danger" *ngIf="formulario.controls.correo_electronico.errors.valorUnico">
+            <p>El código ingresado ya existe</p>
+          </ion-item>
+        </div>
 
         <ion-item color="danger"
           *ngIf="formulario.controls.correo_electronico.errors && formulario.controls.correo_electronico.touched">

@@ -15,6 +15,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { Camera } from '@ionic-native/camera/ngx';
 import { FotoPageModule } from './pages/foto/foto.module';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,6 +25,7 @@ import { FotoPageModule } from './pages/foto/foto.module';
     IonicModule.forRoot(),
     AppRoutingModule,
     ReactiveFormsModule,
+    AngularFireAuthModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule,
     AngularFireStorageModule,

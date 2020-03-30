@@ -12,11 +12,15 @@ const routes: Routes = [
   { path: 'productos', loadChildren: './pages/productos/productos.module#ProductosPageModule' },
   {
     path: 'ubicacion',
-    loadChildren: () => import('./pages/ubicacion/ubicacion.module').then( m => m.UbicacionPageModule)
+    loadChildren: () => import('./pages/ubicacion/ubicacion.module').then(m => m.UbicacionPageModule)
   },
   {
     path: 'usuarios',
-    loadChildren: () => import('./pages/usuarios/usuarios.module').then( m => m.UsuariosPageModule)
+    loadChildren: () => import('./pages/usuarios/usuarios.module').then(m => m.UsuariosPageModule)
+  },
+  {
+    path: 'logueo',
+    loadChildren: () => import('./pages/logueo/logueo.module').then(m => m.LogueoPageModule)
   }
 ];
 

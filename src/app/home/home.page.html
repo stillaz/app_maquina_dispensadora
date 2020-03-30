@@ -1,10 +1,11 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-     Home
+    <ion-title *ngIf="usuario_logueado">
+      {{usuario_logueado.nombre}}
     </ion-title>
   </ion-toolbar>
 </ion-header>
+
 <ion-content>
   <ion-list>
     <ion-item (click)="ir('maquinas')">
@@ -18,6 +19,20 @@
     <ion-item (click)="ir('ubicacion')">
       Ubicación
     </ion-item>
+
+    <ion-item (click)="ir('usuarios')">
+      Usuarios
+    </ion-item>
   </ion-list>
 </ion-content>
 
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button color="danger" (click)="cerrar()">
+        <ion-icon name="log-out-outline"></ion-icon>
+        Cerrar sesión
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

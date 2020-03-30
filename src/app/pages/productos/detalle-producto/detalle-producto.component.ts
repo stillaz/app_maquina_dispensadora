@@ -120,7 +120,11 @@ export class DetalleProductoComponent implements OnInit {
         if (Validators.required(control) || this.id) return null;
         const id = control.value;
         const producto = await this.obtener(id);
-        resolve({ valorUnico: producto });
+        if (producto) {
+          resolve({ valorUnico: true });
+        }
+
+        return null;
       });
     }
   }

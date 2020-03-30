@@ -15,7 +15,6 @@ export class UbicacionService {
   }
 
   registrar(ubicacion: Ubicacion) {
-    console.log(ubicacion);
     const ubicacionDocument = this.angularFirestore.doc<Ubicacion>(`ubicacion/${ubicacion.id}`);
     return ubicacionDocument.set(ubicacion);
   }
