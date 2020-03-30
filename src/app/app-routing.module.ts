@@ -13,8 +13,11 @@ const routes: Routes = [
   {
     path: 'ubicacion',
     loadChildren: () => import('./pages/ubicacion/ubicacion.module').then( m => m.UbicacionPageModule)
+  },
+  {
+    path: 'usuarios',
+    loadChildren: () => import('./pages/usuarios/usuarios.module').then( m => m.UsuariosPageModule)
   }
-
 ];
 
 
